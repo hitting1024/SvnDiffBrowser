@@ -1,1 +1,5 @@
 # SvnDiffBrowser
+
+## Launch
+
+`$ gradle bootRun`
