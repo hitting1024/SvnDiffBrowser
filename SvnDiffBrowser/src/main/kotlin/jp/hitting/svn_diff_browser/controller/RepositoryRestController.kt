@@ -17,12 +17,12 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/repository")
-public class RepositoryRestController {
+class RepositoryRestController {
 
-    private static String SESSION_REPOSITORY_KEY = "SESSION_REPOSITORY_KEY";
+    private val SESSION_REPOSITORY_KEY = "SESSION_REPOSITORY_KEY"
 
     @Autowired
-    private RepositoryService repositoryServiceImpl;
+    private val repositoryServiceImpl: RepositoryService? = null
 
     /**
      * get repository list.
@@ -30,8 +30,8 @@ public class RepositoryRestController {
      * @return repository list
      */
     @RequestMapping("/list")
-    public Map<String, RepositoryModel> getRepositoryList(HttpSession session) {
-        return (Map<String, RepositoryModel>) session.getAttribute(SESSION_REPOSITORY_KEY);
+    fun getRepositoryList(session: HttpSession): Map<String, RepositoryModel> {
+        return session.getAttribute(SESSION_REPOSITORY_KEY) as Map<String, RepositoryModel>
     }
 
     /**
@@ -40,22 +40,22 @@ public class RepositoryRestController {
      * @param repositoryModel repository information (url, userid, password)
      * @return success: true, failure: false
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public boolean addRepository(RepositoryModel repositoryModel, HttpSession session) {
-        if (!this.repositoryServiceImpl.existsRepository(repositoryModel)) {
-            return false;
+    @RequestMapping(value = "/add", method = arrayOf(RequestMethod.POST))
+    fun addRepository(repositoryModel: RepositoryModel, session: HttpSession): Boolean {
+        if (!this.repositoryServiceImpl!!.existsRepository(repositoryModel)) {
+            return false
         }
 
         // save
-        Map<String, RepositoryModel> map = (Map<String, RepositoryModel>) session.getAttribute(SESSION_REPOSITORY_KEY);
+        var map = session.getAttribute(SESSION_REPOSITORY_KEY) as HashMap<String, RepositoryModel>
         if (map == null) {
-            map = new HashMap<>();
+            map = HashMap<String, RepositoryModel>()
         }
-        if (!map.containsKey(repositoryModel.getUrl())) {
-            map.put(repositoryModel.getUrl(), repositoryModel);
+        if (!map.containsKey(repositoryModel.url)) {
+            map.put(repositoryModel.url, repositoryModel)
         }
-        session.setAttribute(SESSION_REPOSITORY_KEY, map);
-        return true;
+        session.setAttribute(SESSION_REPOSITORY_KEY, map)
+        return true
     }
 
     /**
@@ -64,9 +64,9 @@ public class RepositoryRestController {
      * @param url repository url
      * @return success: true, failure: false
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public boolean deleteRepository(String url, HttpSession session) {
-        Map<String, RepositoryModel> map = (Map<String, RepositoryModel>) session.getAttribute(SESSION_REPOSITORY_KEY);
+    @RequestMapping(value = "/delete", method = arrayOf(RequestMethod.DELETE))
+    fun deleteRepository(url: String, session: HttpSession): Boolean {
+        val map = session.getAttribute(SESSION_REPOSITORY_KEY) as Map<String, RepositoryModel>;
         if (map == null) {
             return true;
         }
