@@ -4,24 +4,24 @@
 
     <!-- Basic Page Needs
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>SvnDiffBrowser</title>
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
     <!-- Mobile Specific Metas
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!-- FONT
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"/>
 
     <!-- CSS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="libs/skeleton/css/normalize.css" />
-    <link rel="stylesheet" href="libs/skeleton/css/skeleton.css" />
-    <link rel="stylesheet" href="libs/skeleton/css/github-prettify-theme.css" />
+    <link rel="stylesheet" href="/libs/skeleton/css/normalize.css"/>
+    <link rel="stylesheet" href="/libs/skeleton/css/skeleton.css"/>
+    <link rel="stylesheet" href="/libs/skeleton/css/github-prettify-theme.css"/>
 
 </head>
 <body>
@@ -29,15 +29,37 @@
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container">
-    <div class="row">
-        <div class="one-half column" style="margin-top: 25%">
-            <h4>Basic Page</h4>
-            <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+    <h1>SvnDiffBrowser</h1>
+
+    <form action="/repository/add" method="post">
+        <div class="row">
+            <label for="urlInput">URL</label>
+            <input id="urlInput" class="u-full-width" type="text" name="url" placeholder="https://..."/>
         </div>
-    </div>
+        <div class="row">
+            <div class="six columns">
+                <label for="userIdInput">User ID</label>
+                <input id="userIdInput" class="u-full-width" type="text" name="userId" placeholder="username"/>
+            </div>
+            <div class="six columns">
+                <label for="passwordInput">Password</label>
+                <input id="passwordInput" class="u-full-width" type="password" name="password" placeholder="password"/>
+            </div>
+        </div>
+        <div class="row">
+            <input class="button-primary" type="submit" value="Add Repository"/>
+        </div>
+    </form>
 </div>
+
+<!-- JS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script type="text/javascript" src="/libs/jquery/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
 </body>
 </html>
