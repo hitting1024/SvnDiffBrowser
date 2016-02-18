@@ -42,7 +42,6 @@ class RepositoryRestController {
      */
     @RequestMapping(value = "/add", method = arrayOf(RequestMethod.POST))
     fun addRepository(repositoryModel: RepositoryModel, session: HttpSession): Boolean {
-        System.out.println(repositoryModel.userId + ", " + repositoryModel.password + ", " + repositoryModel.url);
         if (!this.repositoryServiceImpl!!.existsRepository(repositoryModel)) {
             return false
         }
