@@ -1,0 +1,21 @@
+{
+  "name": "static",
+  "description": "",
+  "main": "main.js",
+  "authors": [
+    "ioka <hit0apps@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/hitting1024/SvnDiffBrowser",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.0"
+  }
+}
