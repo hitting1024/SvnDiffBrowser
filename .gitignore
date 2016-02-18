@@ -7,6 +7,10 @@ build
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# dependency directory
+node_modules
+bower_components
+
 # Package Files #
 *.jar
 *.war
