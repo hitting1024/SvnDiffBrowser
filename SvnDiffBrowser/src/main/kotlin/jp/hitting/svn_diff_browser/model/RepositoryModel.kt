@@ -10,4 +10,9 @@ class RepositoryModel {
     var userId = ""
     var password = ""
 
+    override
+    fun hashCode(): Int {
+        return (this.url + "^" + this.userId).hashCode()
+    }
+
 }
