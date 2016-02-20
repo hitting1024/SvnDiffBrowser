@@ -30,8 +30,8 @@ class RepositoryRestController {
      * @return repository list
      */
     @RequestMapping("/list")
-    fun getRepositoryList(session: HttpSession): Map<Int, RepositoryModel> {
-        return session.getAttribute(SESSION_REPOSITORY_KEY) as Map<Int, RepositoryModel>
+    fun getRepositoryList(session: HttpSession): Map<Int, RepositoryModel>? {
+        return session.getAttribute(SESSION_REPOSITORY_KEY) as? Map<Int, RepositoryModel>
     }
 
     /**
