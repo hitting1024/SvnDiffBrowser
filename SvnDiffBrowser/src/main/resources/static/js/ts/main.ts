@@ -1,6 +1,8 @@
 
 /// <reference path="typings/tsd.d.ts" />
 
+declare var baseUrl: string;
+
 $(function() {
   $('#addRepositoryForm').submit(function(e: JQueryEventObject) {
     e.preventDefault();
@@ -12,18 +14,20 @@ $(function() {
 
 function addRepository(url: string, data: string) {
   $.post(
-    url, data
+    baseUrl + url, data
   ).done(function(data) {
     // reload data
     reloadRepositories();
   }).fail(function(data) {
     // show message
+    console.log('add failure')
+    console.log(data)
   });
 }
 
 function reloadRepositories() {
   $.get(
-    '/repository/list'
+    baseUrl + '/repository/list'
   ).done(function(data) {
     console.log(data);
     for (var id in data) {
@@ -32,6 +36,8 @@ function reloadRepositories() {
     }
   }).fail(function(data) {
     // show message
+    console.log('reload failure')
+    console.log(data)
   });
 }
 

@@ -59,8 +59,15 @@
 <!-- JS
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
+<script type="text/javascript" th:inline="javascript">
+var baseUrl = /*[[@{/}]]*/ 'http://localhost:8080/';
+</script>
+
 <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
+
+<script th:if="${false}" type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script th:if="${false}" type="text/javascript" src="../static/js/main.js"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
