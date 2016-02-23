@@ -1,0 +1,19 @@
+{
+  "repository/list": [
+    {
+      "url": "http://www.hitting.jp/",
+      "userId": "username",
+      "password": ""
+    },
+    {
+      "url": "http://www.hitting.jp/",
+      "userId": "username2",
+      "password": ""
+    },
+    {
+      "url": "http://localhost:8080/",
+      "userId": "username",
+      "password": ""
+    }
+  ]
+}
