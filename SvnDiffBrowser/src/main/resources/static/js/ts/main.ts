@@ -30,10 +30,20 @@ function reloadRepositories() {
     baseUrl + '/repository/list'
   ).done(function(data) {
     console.log(data);
-    for (var id in data) {
-      var repository = <RepositoryModel> data[id];
+    let $table = $('<table>');
+    let $tr = $('<tr>');
+    $tr.append($('<th>').text('URL'));
+    $tr.append($('<th>').text('User ID'));
+    $table.append($tr);
+    for (let id in data) {
+      let repository = <RepositoryModel> data[id];
       console.log(repository.url);
+      let $tr = $('<tr>');
+      $tr.append($('<td>').text(repository.url));
+      $tr.append($('<td>').text(repository.userId));
+      $table.append($tr);
     }
+    $('#repositoryList').append($table);
   }).fail(function(data) {
     // show message
     console.log('reload failure')
