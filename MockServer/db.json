@@ -15,5 +15,9 @@
       "userId": "username",
       "password": ""
     }
+  ],
+  "repository/add": [
+  ],
+  "repository/delete": [
   ]
 }
