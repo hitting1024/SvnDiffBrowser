@@ -19,9 +19,9 @@
 
     <!-- CSS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="/libs/skeleton/css/normalize.css"/>
-    <link rel="stylesheet" href="/libs/skeleton/css/skeleton.css"/>
-    <link rel="stylesheet" href="/libs/skeleton/css/github-prettify-theme.css"/>
+    <link rel="stylesheet" href="../static/libs/skeleton/css/normalize.css" th:href="@{/libs/skeleton/css/normalize.css}"/>
+    <link rel="stylesheet" href="../static/libs/skeleton/css/skeleton.css" th:href="@{/libs/skeleton/css/skeleton.css}"/>
+    <link rel="stylesheet" href="../static/libs/skeleton/css/github-prettify-theme.css" th:href="@{/libs/skeleton/css/github-prettify-theme.css}"/>
 
 </head>
 <body>
@@ -60,14 +60,11 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script type="text/javascript" th:inline="javascript">
-var baseUrl = /*[[@{/}]]*/ 'http://localhost:3000';
+var baseUrl = /*[[ @{/} ]]*/ 'http://localhost:3000';
 </script>
 
-<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-
-<script th:if="${false}" type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js"></script>
-<script th:if="${false}" type="text/javascript" src="../static/js/main.js"></script>
+<script type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
