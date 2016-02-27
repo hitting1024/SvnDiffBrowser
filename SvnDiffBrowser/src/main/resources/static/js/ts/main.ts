@@ -20,20 +20,24 @@ function addRepository(url: string, data: string) {
     reloadRepositories();
   }).fail(function(data) {
     // show message
-    console.log('add failure')
-    console.log(data)
+    console.log('add failure');
+    console.log(data);
   });
 }
 
 function reloadRepositories() {
   $.get(
-    baseUrl + '/repository/list'
+    baseUrl + 'repository/list'
   ).done(function(data) {
     console.log(data);
+    if (data.length == 0) {
+      return;
+    }
     let $table = $('<table>');
     let $tr = $('<tr>');
     $tr.append($('<th>').text('URL'));
     $tr.append($('<th>').text('User ID'));
+    $tr.append('<th>');
     $table.append($tr);
     for (let id in data) {
       let repository = <RepositoryModel> data[id];
@@ -41,18 +45,44 @@ function reloadRepositories() {
       let $tr = $('<tr>');
       $tr.append($('<td>').text(repository.url));
       $tr.append($('<td>').text(repository.userId));
+      $tr.append(
+        $('<td>').append(
+          $('<a>')
+            .text('Delete')
+            .attr('href', '#')
+            .attr('url', encodeURIComponent(repository.url))
+            .attr('userId', encodeURIComponent(repository.userId))
+            .click(function(e: JQueryEventObject) {
+              let $this = $(this);
+              deleteRepository($this.attr('url'), $this.attr('userId'));
+            })
+        )
+      );
       $table.append($tr);
     }
-    $('#repositoryList').append($table);
+    let $repositoryList = $('#repositoryList');
+    $repositoryList.empty();
+    $repositoryList.append($table);
   }).fail(function(data) {
     // show message
-    console.log('reload failure')
-    console.log(data)
+    console.log('reload failure');
+    console.log(data);
   });
 }
 
-function deleteRepository() {
-  // TODO
+function deleteRepository(url: string, userId: string) {
+  console.log(url + ', ' + userId);
+  $.ajax({
+    type: 'DELETE',
+    url: baseUrl + 'repository/delete',
+    data: {'url': url, 'userId': userId}
+  }).done(function(data) {
+    reloadRepositories();
+  }).fail(function(data) {
+    // show message
+    console.log('delete failure');
+    console.log(data);
+  });
 }
 
 // class
