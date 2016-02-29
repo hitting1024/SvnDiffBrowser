@@ -42,6 +42,7 @@ function reloadRepositories() {
     for (let id in data) {
       let repository = <RepositoryModel> data[id];
       console.log(repository.url);
+      let userId = repository.userId.length >= 0 ? encodeURIComponent(repository.userId) : '-';
       let $tr = $('<tr>');
       $tr.append($('<td>').text(repository.url));
       $tr.append($('<td>').text(repository.userId));
@@ -51,7 +52,7 @@ function reloadRepositories() {
             .text('Delete')
             .attr('href', '#')
             .attr('url', encodeURIComponent(repository.url))
-            .attr('userId', encodeURIComponent(repository.userId))
+            .attr('userId', userId)
             .click(function(e: JQueryEventObject) {
               let $this = $(this);
               deleteRepository($this.attr('url'), $this.attr('userId'));
