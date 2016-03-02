@@ -65,12 +65,12 @@ class RepositoryRestController {
      * @return success: true, failure: false
      */
     @RequestMapping(value = "/delete", method = arrayOf(RequestMethod.POST))
-    fun deleteRepository(repositoryModel: RepositoryModel, session: HttpSession): Boolean {
+    fun deleteRepository(repositoryId: Int, session: HttpSession): Boolean {
         val map = session.getAttribute(SESSION_REPOSITORY_KEY) as Map<Int, RepositoryModel>;
         if (map == null) {
             return true;
         }
-        map.remove(repositoryModel.hashCode());
+        map.remove(repositoryId);
         return true;
     }
 

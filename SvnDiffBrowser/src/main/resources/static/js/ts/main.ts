@@ -41,8 +41,6 @@ function reloadRepositories() {
     $table.append($tr);
     for (let id in data) {
       let repository = <RepositoryModel> data[id];
-      console.log(repository.url);
-      let userId = repository.userId.length >= 0 ? encodeURIComponent(repository.userId) : '-';
       let $tr = $('<tr>');
       $tr.append($('<td>').text(repository.url));
       $tr.append($('<td>').text(repository.userId));
@@ -51,11 +49,10 @@ function reloadRepositories() {
           $('<a>')
             .text('Delete')
             .attr('href', '#')
-            .attr('url', encodeURIComponent(repository.url))
-            .attr('userId', userId)
+            .attr('repositoryId', id)
             .click(function(e: JQueryEventObject) {
               let $this = $(this);
-              deleteRepository($this.attr('url'), $this.attr('userId'));
+              deleteRepository($this.attr('repositoryId'));
             })
         )
       );
@@ -71,13 +68,11 @@ function reloadRepositories() {
   });
 }
 
-function deleteRepository(url: string, userId: string) {
-  console.log(url + ', ' + userId);
-  $.ajax({
-    type: 'DELETE',
-    url: baseUrl + 'repository/delete',
-    data: {'url': url, 'userId': userId}
-  }).done(function(data) {
+function deleteRepository(repositoryId: string) {
+  $.post(
+    baseUrl + 'repository/delete',
+    {'repositoryId': repositoryId}
+  ).done(function(data) {
     reloadRepositories();
   }).fail(function(data) {
     // show message
