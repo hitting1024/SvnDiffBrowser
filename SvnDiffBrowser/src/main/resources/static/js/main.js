@@ -20,9 +20,11 @@ function reloadRepositories() {
             return;
         }
         var $table = $('<table>');
+        $table.css('width', '100%');
         var $tr = $('<tr>');
         $tr.append($('<th>').text('URL'));
         $tr.append($('<th>').text('User ID'));
+        $tr.append('<th>');
         $tr.append('<th>');
         $table.append($tr);
         for (var id in data) {
@@ -31,7 +33,13 @@ function reloadRepositories() {
             $tr_1.append($('<td>').text(repository.url));
             $tr_1.append($('<td>').text(repository.userId));
             $tr_1.append($('<td>').append($('<a>')
+                .text('Detail')
+                .addClass('button')
+                .addClass('button-primary')
+                .attr('href', baseUrl + 'repository/' + id)));
+            $tr_1.append($('<td>').append($('<a>')
                 .text('Delete')
+                .addClass('button')
                 .attr('href', '#')
                 .attr('repositoryId', id)
                 .click(function (e) {
