@@ -21,23 +21,17 @@ function reloadRepositories() {
         }
         var $table = $('<table>');
         $table.css('width', '100%');
-        var $tr = $('<tr>');
-        $tr.append($('<th>').text('URL'));
-        $tr.append($('<th>').text('User ID'));
-        $tr.append('<th>');
-        $tr.append('<th>');
-        $table.append($tr);
         for (var id in data) {
             var repository = data[id];
-            var $tr_1 = $('<tr>');
-            $tr_1.append($('<td>').text(repository.url));
-            $tr_1.append($('<td>').text(repository.userId));
-            $tr_1.append($('<td>').append($('<a>')
+            var $tr = $('<tr>');
+            $tr.append($('<td>').text(repository.url));
+            $tr.append($('<td>').text(repository.userId));
+            $tr.append($('<td>').append($('<a>')
                 .text('Detail')
                 .addClass('button')
                 .addClass('button-primary')
                 .attr('href', baseUrl + 'repository/' + id)));
-            $tr_1.append($('<td>').append($('<a>')
+            $tr.append($('<td>').append($('<a>')
                 .text('Delete')
                 .addClass('button')
                 .attr('href', '#')
@@ -46,7 +40,7 @@ function reloadRepositories() {
                 var $this = $(this);
                 deleteRepository($this.attr('repositoryId'));
             })));
-            $table.append($tr_1);
+            $table.append($tr);
         }
         var $repositoryList = $('#repositoryList');
         $repositoryList.empty();

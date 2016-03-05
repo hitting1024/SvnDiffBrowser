@@ -35,12 +35,6 @@ function reloadRepositories() {
     }
     let $table = $('<table>');
     $table.css('width', '100%');
-    let $tr = $('<tr>');
-    $tr.append($('<th>').text('URL'));
-    $tr.append($('<th>').text('User ID'));
-    $tr.append('<th>');
-    $tr.append('<th>');
-    $table.append($tr);
     for (let id in data) {
       let repository = <RepositoryModel> data[id];
       let $tr = $('<tr>');
