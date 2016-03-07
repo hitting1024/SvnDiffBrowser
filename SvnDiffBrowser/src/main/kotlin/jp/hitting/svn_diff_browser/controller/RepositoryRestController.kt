@@ -1,5 +1,6 @@
 package jp.hitting.svn_diff_browser.controller;
 
+import jp.hitting.svn_diff_browser.Constants
 import jp.hitting.svn_diff_browser.model.RepositoryModel;
 import jp.hitting.svn_diff_browser.service.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/repository")
 class RepositoryRestController {
 
-    private val SESSION_REPOSITORY_KEY = "SESSION_REPOSITORY_KEY"
-
     @Autowired
     private val repositoryServiceImpl: RepositoryService? = null
 
@@ -31,7 +30,7 @@ class RepositoryRestController {
      */
     @RequestMapping("/list")
     fun getRepositoryList(session: HttpSession): Map<Int, RepositoryModel>? {
-        return session.getAttribute(SESSION_REPOSITORY_KEY) as? Map<Int, RepositoryModel>
+        return session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as? Map<Int, RepositoryModel>
     }
 
     /**
@@ -47,14 +46,14 @@ class RepositoryRestController {
         }
 
         // save
-        var map: HashMap<Int, RepositoryModel>? = session.getAttribute(SESSION_REPOSITORY_KEY) as? HashMap<Int, RepositoryModel>
+        var map: HashMap<Int, RepositoryModel>? = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as? HashMap<Int, RepositoryModel>
         if (map == null) {
             map = HashMap<Int, RepositoryModel>()
         }
         if (!map.containsKey(repositoryModel.hashCode())) {
             map.put(repositoryModel.hashCode(), repositoryModel)
         }
-        session.setAttribute(SESSION_REPOSITORY_KEY, map)
+        session.setAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY, map)
         return true
     }
 
@@ -66,7 +65,7 @@ class RepositoryRestController {
      */
     @RequestMapping(value = "/delete", method = arrayOf(RequestMethod.POST))
     fun deleteRepository(repositoryId: Int, session: HttpSession): Boolean {
-        val map = session.getAttribute(SESSION_REPOSITORY_KEY) as Map<Int, RepositoryModel>;
+        val map = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as Map<Int, RepositoryModel>;
         if (map == null) {
             return true;
         }
