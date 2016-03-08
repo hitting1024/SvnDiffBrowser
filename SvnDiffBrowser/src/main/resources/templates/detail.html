@@ -31,6 +31,14 @@
 <div class="container">
     <h1>Detail</h1>
 
+    <div id="logList">
+        <table style="width: 100%;">
+            <tr th:each="logInfo: ${logList}">
+                <td class="two columns" th:text="${logInfo.rev}">revision</td>
+                <td class="ten columns" th:text="${logInfo.comment}">commnet</td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 
