@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8"/>
+    <title>SvnDiffBrowser</title>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"/>
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="../static/libs/skeleton/css/normalize.css" th:href="@{/libs/skeleton/css/normalize.css}"/>
+    <link rel="stylesheet" href="../static/libs/skeleton/css/skeleton.css" th:href="@{/libs/skeleton/css/skeleton.css}"/>
+    <link rel="stylesheet" href="../static/libs/skeleton/css/github-prettify-theme.css" th:href="@{/libs/skeleton/css/github-prettify-theme.css}"/>
+
+</head>
+<body>
+
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div class="container">
+    <h1>Diff</h1>
+
+</div>
+
+<!-- JS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script type="text/javascript" th:inline="javascript">
+var baseUrl = /*[[ @{/} ]]*/ 'http://localhost:3000/';
+</script>
+
+<script type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+</body>
+</html>

@@ -26,6 +26,7 @@ class RepositoryController {
      * Repository detail page
      *
      * @param id repository ID
+     * @param session HttpSession
      * @param model Model
      * @return detail view name
      */
@@ -40,6 +41,21 @@ class RepositoryController {
         model.addAttribute("logList", this.repositoryServiceImpl!!.getLogList(map.get(id)!!))
 
         return "detail"
+    }
+
+    /**
+     * Repository commit log page at revision.
+     *
+     * @param id repository ID
+     * @param rev revision
+     * @param session HttpSession
+     * @param model Model
+     * @return diff view name
+     */
+    @RequestMapping("/{id}/rev/{rev}")
+    fun diff(@PathVariable("id") id: Int, @PathVariable("rev") rev: Long, session: HttpSession, model: Model): String {
+        // TODO
+        return "diff"
     }
 
 }
