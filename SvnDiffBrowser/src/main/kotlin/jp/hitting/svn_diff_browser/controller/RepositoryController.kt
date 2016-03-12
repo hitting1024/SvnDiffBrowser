@@ -26,12 +26,13 @@ class RepositoryController {
      * Repository detail page
      *
      * @param id repository ID
+     * @param dir target directory
      * @param session HttpSession
      * @param model Model
      * @return detail view name
      */
     @RequestMapping("/{id}")
-    fun detail(@PathVariable("id") id: Int, session: HttpSession, model: Model): String {
+    fun detail(@PathVariable("id") id: Int, path: String?, session: HttpSession, model: Model): String {
         val map = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as? HashMap<Int, RepositoryModel>
         if (map == null || !map.containsKey(id)) {
             // TODO error message
