@@ -6,7 +6,7 @@ package jp.hitting.svn_diff_browser.model
  */
 class LogInfo {
 
-    var rev = ""
-    var comment = ""
+    var rev: Long = -1
+    var comment: String = ""
 
 }
