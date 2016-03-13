@@ -31,6 +31,21 @@
 <div class="container">
     <h1>Detail</h1>
 
+    <h2 th:text="${path}">Path: SvnDiffBrowser/src/</h2>
+
+    <div id="fileList">
+        <table style="width: 100%;">
+            <tr th:each="file: ${fileList}">
+                <td class="four columns">
+                    <a href="detail.html" th:text="${file}" th:href="@{/repository/__${id}__}?path=${file}">file</a>
+                </td>
+                <td class="eight columns">
+                    log comment
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <div id="logList">
         <table style="width: 100%;">
             <tr th:each="logInfo: ${logList}">
