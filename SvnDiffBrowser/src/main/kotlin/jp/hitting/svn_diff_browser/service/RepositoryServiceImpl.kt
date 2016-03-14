@@ -12,6 +12,7 @@ import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
+import org.tmatesoft.svn.core.io.SVNRepository
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.wc.SVNWCUtil
 import java.util.*
@@ -28,33 +29,15 @@ class RepositoryServiceImpl: RepositoryService {
      */
     override
     fun existsRepository(repositoryModel: RepositoryModel): Boolean {
-        val url = repositoryModel.url
-        if (StringUtils.isEmpty(url)) {
-            return false
-        }
-
-        // init
-        // TODO handle concurrent access
-        if (url.startsWith("http", false)) {
-            DAVRepositoryFactory.setup()
-        } else if (url.startsWith("svn")) {
-            SVNRepositoryFactoryImpl.setup()
-        } else if (url.startsWith("file")) {
-            FSRepositoryFactory.setup()
-        }
-
         try {
-            val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
-            val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
-            val repository = SVNRepositoryFactory.create(svnUrl)
-            repository.authenticationManager = auth
+            val repository = this.initRepository(repositoryModel) ?: return false
             val nodeKind = repository.checkPath("", -1);
-            if (nodeKind == SVNNodeKind.NONE) {
-                return false;
+            if (SVNNodeKind.NONE == nodeKind) {
+                return false
             }
         } catch (e: SVNException) {
             e.printStackTrace();
-            return false;
+            return false
         }
 
         return true;
@@ -64,28 +47,9 @@ class RepositoryServiceImpl: RepositoryService {
      * {@inheritDoc}
      */
     override fun getLogList(repositoryModel: RepositoryModel): List<LogInfo> {
-        val url = repositoryModel.url
-        if (StringUtils.isEmpty(url)) {
-            return Collections.emptyList()
-        }
-
-
-        // init
-        // TODO handle concurrent access
-        if (url.startsWith("http", false)) {
-            DAVRepositoryFactory.setup()
-        } else if (url.startsWith("svn")) {
-            SVNRepositoryFactoryImpl.setup()
-        } else if (url.startsWith("file")) {
-            FSRepositoryFactory.setup()
-        }
-
         val list = ArrayList<LogInfo>()
         try {
-            val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
-            val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
-            val repository = SVNRepositoryFactory.create(svnUrl)
-            repository.authenticationManager = auth
+            val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
             val rev = repository.latestRevision
             val logs = repository.log(arrayOf("/"), null, 0, rev, false, false) as List<SVNLogEntry>
             logs.forEach {
@@ -102,6 +66,38 @@ class RepositoryServiceImpl: RepositoryService {
         }
 
         return list
+    }
+
+    /**
+     * init repository.
+     *
+     * @param repositoryModel repository information
+     * @return svn repository with auth info
+     * @throws SVNException throw it when svnkit can't connect repository
+     */
+    @Throws(SVNException::class)
+    private fun initRepository(repositoryModel: RepositoryModel): SVNRepository? {
+        val url = repositoryModel.url
+        if (StringUtils.isEmpty(url)) {
+            return null
+        }
+
+        // init
+        // TODO handle concurrent access
+        if (url.startsWith("http", false)) {
+            DAVRepositoryFactory.setup()
+        } else if (url.startsWith("svn")) {
+            SVNRepositoryFactoryImpl.setup()
+        } else if (url.startsWith("file")) {
+            FSRepositoryFactory.setup()
+        }
+
+        val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
+        val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
+        val repository = SVNRepositoryFactory.create(svnUrl)
+        repository.authenticationManager = auth
+
+        return repository
     }
 
 }
