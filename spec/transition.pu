@@ -1,0 +1,13 @@
+@startuml
+
+[*] -> index
+index --> index: add repository
+index --> detail: detail
+
+detail --> detail: path
+detail --> index: top
+detail --> diff: revision
+
+diff --> index: top
+
+@enduml
