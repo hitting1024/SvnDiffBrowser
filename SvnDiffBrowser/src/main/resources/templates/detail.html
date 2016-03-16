@@ -46,6 +46,10 @@
 
     <div id="logList">
         <table style="width: 100%;">
+            <tr>
+                <th>Revision</th>
+                <th>Comment</th>
+            </tr>
             <tr th:each="logInfo: ${logList}">
                 <td class="two columns">
                     <a href="diff.html" th:text="${logInfo.rev}" th:href="@{/repository/__${id}__/rev/__${logInfo.rev}__}">revision</a>
