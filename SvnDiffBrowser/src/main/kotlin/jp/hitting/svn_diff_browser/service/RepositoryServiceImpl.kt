@@ -1,14 +1,12 @@
 package jp.hitting.svn_diff_browser.service;
 
 import jp.hitting.svn_diff_browser.model.LogInfo
+import jp.hitting.svn_diff_browser.model.PathInfo
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import jp.hitting.svn_diff_browser.model.RepositoryModel;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNLogEntry
-import org.tmatesoft.svn.core.SVNNodeKind
-import org.tmatesoft.svn.core.SVNURL;
+import org.tmatesoft.svn.core.*
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
@@ -59,6 +57,30 @@ class RepositoryServiceImpl: RepositoryService {
                 l.comment = if (message == null) "" else message
 
                 list.add(l)
+            }
+        } catch (e: SVNException) {
+            e.printStackTrace();
+            return Collections.emptyList()
+        }
+
+        return list
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    override fun getPathList(repositoryModel: RepositoryModel): List<PathInfo> {
+        val list = ArrayList<PathInfo>()
+        try {
+            val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
+            val rev = repository.latestRevision
+            val dirs = repository.getDir("/", rev, null, null as? Collection<*>) as Collection<SVNDirEntry>
+            dirs.forEach {
+                val p = PathInfo()
+                p.path = it.relativePath
+                p.comment = it.commitMessage
+                p.isDir = (SVNNodeKind.DIR == it.kind)
+                list.add(p)
             }
         } catch (e: SVNException) {
             e.printStackTrace();

@@ -39,7 +39,10 @@ class RepositoryController {
             return "index"
         }
 
+        // FIXME init repository twice
+        model.addAttribute("path", path)
         model.addAttribute("logList", this.repositoryServiceImpl!!.getLogList(map.get(id)!!))
+        model.addAttribute("pathList", this.repositoryServiceImpl!!.getPathList(map.get(id)!!))
 
         return "detail"
     }
