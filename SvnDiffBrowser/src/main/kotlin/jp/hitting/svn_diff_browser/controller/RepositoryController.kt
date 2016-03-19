@@ -39,10 +39,14 @@ class RepositoryController {
             return "index"
         }
 
+        val repository = map.get(id)!!
+        val temp = repository.url.split("/")
+        val repositoryName = temp.get(temp.size - 1)
+        model.addAttribute("repositoryName", repositoryName)
+        model.addAttribute("path", if (path == null) "/" else "/" + path)
         // FIXME init repository twice
-        model.addAttribute("path", path)
-        model.addAttribute("logList", this.repositoryServiceImpl!!.getLogList(map.get(id)!!))
-        model.addAttribute("pathList", this.repositoryServiceImpl!!.getPathList(map.get(id)!!))
+        model.addAttribute("logList", this.repositoryServiceImpl!!.getLogList(repository))
+        model.addAttribute("pathList", this.repositoryServiceImpl!!.getPathList(repository))
 
         return "detail"
     }
