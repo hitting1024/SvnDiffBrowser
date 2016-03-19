@@ -22,16 +22,18 @@ interface RepositoryService {
      * get log list.
      *
      * @param repositoryModel repository info
+     * @param path target path
      * @return LogInfo list
      */
-    fun getLogList(repositoryModel: RepositoryModel): List<LogInfo>
+    fun getLogList(repositoryModel: RepositoryModel, path: String): List<LogInfo>
 
     /**
      * get path list.
      *
      * @param repositoryModel repository info
+     * @param path target path
      * @return PathInfo list
      */
-    fun getPathList(repositoryModel: RepositoryModel): List<PathInfo>
+    fun getPathList(repositoryModel: RepositoryModel, path: String): List<PathInfo>
 
 }

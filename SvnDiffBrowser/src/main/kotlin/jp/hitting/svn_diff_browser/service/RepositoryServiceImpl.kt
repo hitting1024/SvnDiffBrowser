@@ -44,12 +44,12 @@ class RepositoryServiceImpl: RepositoryService {
     /**
      * {@inheritDoc}
      */
-    override fun getLogList(repositoryModel: RepositoryModel): List<LogInfo> {
+    override fun getLogList(repositoryModel: RepositoryModel, path: String): List<LogInfo> {
         val list = ArrayList<LogInfo>()
         try {
             val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
             val rev = repository.latestRevision
-            val logs = repository.log(arrayOf("/"), null, 0, rev, false, false) as List<SVNLogEntry>
+            val logs = repository.log(arrayOf(path), null, 0, rev, false, false) as List<SVNLogEntry>
             logs.forEach {
                 val l = LogInfo()
                 l.rev = it.revision
@@ -69,12 +69,12 @@ class RepositoryServiceImpl: RepositoryService {
     /**
      * {@inheritDoc}
      */
-    override fun getPathList(repositoryModel: RepositoryModel): List<PathInfo> {
+    override fun getPathList(repositoryModel: RepositoryModel, path: String): List<PathInfo> {
         val list = ArrayList<PathInfo>()
         try {
             val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
             val rev = repository.latestRevision
-            val dirs = repository.getDir("/", rev, null, null as? Collection<*>) as Collection<SVNDirEntry>
+            val dirs = repository.getDir(path, rev, null, null as? Collection<*>) as Collection<SVNDirEntry>
             dirs.forEach {
                 val p = PathInfo()
                 p.path = it.relativePath
