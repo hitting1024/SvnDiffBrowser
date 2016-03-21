@@ -31,6 +31,21 @@
 <div class="container">
     <h1>Diff</h1>
 
+    <h1 th:text="${repositoryName}">Repository Name</h1>
+
+    <h3 th:text="${path}">Path: SvnDiffBrowser/src/</h3>
+
+    <div class="diffList">
+        <div class="row">
+            <span>file name</span>
+        </div>
+        <div class="row">
+            <code class="prettyprint">
+                source code diff
+            </code>
+        </div>
+    </div>
+
 </div>
 
 <!-- JS
