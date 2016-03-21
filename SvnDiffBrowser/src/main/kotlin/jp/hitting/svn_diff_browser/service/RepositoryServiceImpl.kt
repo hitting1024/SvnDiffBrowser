@@ -49,7 +49,8 @@ class RepositoryServiceImpl: RepositoryService {
         try {
             val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
             val rev = repository.latestRevision
-            val logs = repository.log(arrayOf(path), null, 0, rev, false, false) as List<SVNLogEntry>
+            // FIXME adjust start revision number for large revision number
+            val logs = repository.log(arrayOf(path), null, 1, rev, false, false) as List<SVNLogEntry>
             logs.forEach {
                 val l = LogInfo()
                 l.rev = it.revision
