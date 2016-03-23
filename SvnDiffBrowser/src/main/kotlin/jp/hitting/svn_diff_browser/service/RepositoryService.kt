@@ -1,5 +1,6 @@
 package jp.hitting.svn_diff_browser.service;
 
+import jp.hitting.svn_diff_browser.model.DiffInfo
 import jp.hitting.svn_diff_browser.model.LogInfo
 import jp.hitting.svn_diff_browser.model.PathInfo
 import jp.hitting.svn_diff_browser.model.RepositoryModel;
@@ -35,5 +36,15 @@ interface RepositoryService {
      * @return PathInfo list
      */
     fun getPathList(repositoryModel: RepositoryModel, path: String): List<PathInfo>
+
+    /**
+     * get diff list.
+     *
+     * @param repositoryModel repository info
+     * @param path target path
+     * @param rev target revision
+     * @return DiffInfo list
+     */
+    fun getDiffList(repositoryModel: RepositoryModel, path: String, rev: Long): List<DiffInfo>
 
 }
