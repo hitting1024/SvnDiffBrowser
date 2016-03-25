@@ -13,11 +13,9 @@ import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 import org.tmatesoft.svn.core.internal.wc.patch.SVNPatchTarget
 import org.tmatesoft.svn.core.io.*
-import org.tmatesoft.svn.core.wc.SVNDiffClient
-import org.tmatesoft.svn.core.wc.SVNDiffStatus
-import org.tmatesoft.svn.core.wc.SVNRevision
-import org.tmatesoft.svn.core.wc.SVNWCUtil
+import org.tmatesoft.svn.core.wc.*
 import org.tmatesoft.svn.core.wc2.SvnTarget
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 /**
@@ -111,8 +109,10 @@ class RepositoryServiceImpl : RepositoryService {
             val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
             val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
             val diffClient = SVNDiffClient(auth, null)
-            // TODO
-            diffClient.doDiff(svnUrl, SVNRevision.create(rev - 1), svnUrl, SVNRevision.create(rev), SVNDepth.INFINITY, false, System.out)
+
+            val outputStream = ByteArrayOutputStream()
+            diffClient.doDiff(svnUrl, SVNRevision.create(rev - 1), svnUrl, SVNRevision.create(rev), SVNDepth.INFINITY, false, outputStream)
+            System.out.println(outputStream.toString())
         } catch (e: SVNException) {
             e.printStackTrace();
             return Collections.emptyList()
