@@ -99,7 +99,6 @@ class RepositoryServiceImpl : RepositoryService {
      * {@inheritDoc}
      */
     override fun getDiffList(repositoryModel: RepositoryModel, path: String, rev: Long): List<DiffInfo> {
-        val list = ArrayList<DiffInfo>()
         try {
             val url = repositoryModel.url
             if (StringUtils.isEmpty(url)) {
@@ -113,13 +112,11 @@ class RepositoryServiceImpl : RepositoryService {
 
             val outputStream = ByteArrayOutputStream()
             diffClient.doDiff(svnUrl, SVNRevision.create(rev - 1), svnUrl, SVNRevision.create(rev), SVNDepth.INFINITY, false, outputStream)
-            DiffUtil.parseDiff(outputStream.toByteArray())
+            return DiffUtil.parseDiff(outputStream.toByteArray())
         } catch (e: SVNException) {
             e.printStackTrace();
             return Collections.emptyList()
         }
-
-        return list
     }
 
     /**
