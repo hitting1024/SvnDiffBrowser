@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import jp.hitting.svn_diff_browser.model.RepositoryModel;
+import jp.hitting.svn_diff_browser.util.DiffUtil
 import org.tmatesoft.svn.core.*
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
@@ -112,7 +113,7 @@ class RepositoryServiceImpl : RepositoryService {
 
             val outputStream = ByteArrayOutputStream()
             diffClient.doDiff(svnUrl, SVNRevision.create(rev - 1), svnUrl, SVNRevision.create(rev), SVNDepth.INFINITY, false, outputStream)
-            System.out.println(outputStream.toString())
+            DiffUtil.parseDiff(outputStream.toByteArray())
         } catch (e: SVNException) {
             e.printStackTrace();
             return Collections.emptyList()
