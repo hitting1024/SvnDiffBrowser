@@ -6,4 +6,7 @@ package jp.hitting.svn_diff_browser.model
  */
 class DiffInfo {
 
+    var path: String = ""
+    var diff: String = ""
+
 }
