@@ -82,7 +82,7 @@ updated
 
         // assert
         Assert.assertEquals(expectedList.size, diffList.size)
-        for (i in 0..expectedList.size) {
+        for (i in 0..expectedList.size-1) {
             val e = expectedList.get(i)
             val a = diffList.get(i)
             Assert.assertEquals(e.path, a.path)
