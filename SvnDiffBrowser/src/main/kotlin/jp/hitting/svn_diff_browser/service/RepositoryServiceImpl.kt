@@ -3,19 +3,19 @@ package jp.hitting.svn_diff_browser.service;
 import jp.hitting.svn_diff_browser.model.DiffInfo
 import jp.hitting.svn_diff_browser.model.LogInfo
 import jp.hitting.svn_diff_browser.model.PathInfo
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import jp.hitting.svn_diff_browser.model.RepositoryModel;
+import jp.hitting.svn_diff_browser.model.RepositoryModel
 import jp.hitting.svn_diff_browser.util.DiffUtil
+import org.springframework.stereotype.Service
+import org.springframework.util.StringUtils
 import org.tmatesoft.svn.core.*
-import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
-import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
-import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
-import org.tmatesoft.svn.core.internal.wc.patch.SVNPatchTarget
-import org.tmatesoft.svn.core.io.*
-import org.tmatesoft.svn.core.wc.*
-import org.tmatesoft.svn.core.wc2.SvnTarget
+import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory
+import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory
+import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl
+import org.tmatesoft.svn.core.io.SVNRepository
+import org.tmatesoft.svn.core.io.SVNRepositoryFactory
+import org.tmatesoft.svn.core.wc.SVNDiffClient
+import org.tmatesoft.svn.core.wc.SVNRevision
+import org.tmatesoft.svn.core.wc.SVNWCUtil
 import java.io.ByteArrayOutputStream
 import java.util.*
 
