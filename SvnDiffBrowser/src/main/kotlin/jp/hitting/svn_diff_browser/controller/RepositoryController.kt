@@ -72,8 +72,7 @@ class RepositoryController {
 
         val targetPath = if (path == null) "/" else "/" + path
 
-        // TODO
-        this.repositoryServiceImpl!!.getDiffList(map.get(id)!!, targetPath, rev)
+        model.addAttribute("diffList", this.repositoryServiceImpl!!.getDiffList(map.get(id)!!, targetPath, rev))
         return "diff"
     }
 
