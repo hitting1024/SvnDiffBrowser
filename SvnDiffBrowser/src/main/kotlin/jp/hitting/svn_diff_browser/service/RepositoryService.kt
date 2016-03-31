@@ -41,10 +41,9 @@ interface RepositoryService {
      * get diff list.
      *
      * @param repositoryModel repository info
-     * @param path target path
      * @param rev target revision
      * @return DiffInfo list
      */
-    fun getDiffList(repositoryModel: RepositoryModel, path: String, rev: Long): List<DiffInfo>
+    fun getDiffList(repositoryModel: RepositoryModel, rev: Long): List<DiffInfo>
 
 }

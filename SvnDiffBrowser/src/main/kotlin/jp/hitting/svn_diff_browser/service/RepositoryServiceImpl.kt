@@ -98,7 +98,7 @@ class RepositoryServiceImpl : RepositoryService {
     /**
      * {@inheritDoc}
      */
-    override fun getDiffList(repositoryModel: RepositoryModel, path: String, rev: Long): List<DiffInfo> {
+    override fun getDiffList(repositoryModel: RepositoryModel, rev: Long): List<DiffInfo> {
         try {
             val url = repositoryModel.url
             if (StringUtils.isEmpty(url)) {
