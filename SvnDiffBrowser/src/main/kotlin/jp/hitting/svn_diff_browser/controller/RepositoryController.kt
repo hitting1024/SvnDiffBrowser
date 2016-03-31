@@ -63,7 +63,7 @@ class RepositoryController {
      * @return diff view name
      */
     @RequestMapping("/{id}/rev/{rev}")
-    fun diff(@PathVariable("id") id: Int, @PathVariable("rev") rev: Long, path: String?, session: HttpSession, model: Model): String {
+    fun diff(@PathVariable("id") id: Int, @PathVariable("rev") rev: Long, session: HttpSession, model: Model): String {
         val map = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as? HashMap<Int, RepositoryModel>
         if (map == null || !map.containsKey(id)) {
             // TODO error message
@@ -71,8 +71,6 @@ class RepositoryController {
         }
 
         // TODO repository name etc.
-        val targetPath = if (path == null) "/" else "/" + path
-
         model.addAttribute("diffList", this.repositoryServiceImpl!!.getDiffList(map.get(id)!!, rev))
         return "diff"
     }
