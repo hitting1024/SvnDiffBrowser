@@ -40,9 +40,7 @@ class RepositoryController {
         }
 
         val repository = map.get(id)!!
-        val temp = repository.url.split("/")
-        val repositoryName = temp.get(temp.size - 1)
-        model.addAttribute("repositoryName", repositoryName)
+        model.addAttribute("repositoryName", repository.getRepositoryName())
 
         val targetPath = if (path == null) "/" else "/" + path
         model.addAttribute("path", targetPath)
@@ -70,8 +68,10 @@ class RepositoryController {
             return "index"
         }
 
-        // TODO repository name etc.
-        model.addAttribute("diffList", this.repositoryServiceImpl!!.getDiffList(map.get(id)!!, rev))
+        val repository = map.get(id)!!
+        model.addAttribute("repositoryName", repository.getRepositoryName())
+
+        model.addAttribute("diffList", this.repositoryServiceImpl!!.getDiffList(repository, rev))
         return "diff"
     }
 
