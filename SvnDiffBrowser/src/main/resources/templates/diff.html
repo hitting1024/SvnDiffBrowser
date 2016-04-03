@@ -29,20 +29,20 @@
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container">
-    <h1>Diff</h1>
-
     <h1 th:text="${repositoryName}">Repository Name</h1>
 
-    <h3 th:text="${path}">Path: SvnDiffBrowser/src/</h3>
+    <h3>Revision <span th:text="${rev}">777</span></h3>
 
-    <div class="diffList">
-        <div class="row">
-            <span>file name</span>
-        </div>
-        <div class="row">
-            <code class="prettyprint">
-                source code diff
-            </code>
+    <div id="diffList">
+        <div th:each="diff: ${diffList}">
+            <div class="row">
+                <span th:text="${diff.path}">file name</span>
+            </div>
+            <div class="row">
+                <pre class="prettyprint" th:text="${diff.diff}">
+                    source code diff
+                </pre>
+            </div>
         </div>
     </div>
 
