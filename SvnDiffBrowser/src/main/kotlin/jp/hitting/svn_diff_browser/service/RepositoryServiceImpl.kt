@@ -38,7 +38,7 @@ class RepositoryServiceImpl : RepositoryService {
                 return false
             }
         } catch (e: SVNException) {
-            e.printStackTrace();
+            e.printStackTrace()
             return false
         }
 
@@ -88,7 +88,7 @@ class RepositoryServiceImpl : RepositoryService {
                 list.add(p)
             }
         } catch (e: SVNException) {
-            e.printStackTrace();
+            e.printStackTrace()
             return Collections.emptyList()
         }
 
@@ -114,7 +114,7 @@ class RepositoryServiceImpl : RepositoryService {
             diffClient.doDiff(svnUrl, SVNRevision.create(rev - 1), svnUrl, SVNRevision.create(rev), SVNDepth.INFINITY, false, outputStream)
             return DiffUtil.parseDiff(outputStream.toByteArray())
         } catch (e: SVNException) {
-            e.printStackTrace();
+            e.printStackTrace()
             return Collections.emptyList()
         }
     }
