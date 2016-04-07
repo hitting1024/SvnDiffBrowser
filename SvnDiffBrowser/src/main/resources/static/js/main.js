@@ -7,8 +7,13 @@ $(function () {
 });
 function addRepository(url, data) {
     $.post(baseUrl + url, data).done(function (data) {
-        toastr.success('The repository is added.');
-        reloadRepositories();
+        if (data) {
+            toastr.success('The repository is added.');
+            reloadRepositories();
+        }
+        else {
+            toastr.error('Fail to add a repository.');
+        }
     }).fail(function (data) {
         toastr.error('Fail to add a repository.');
         console.log('add failure');

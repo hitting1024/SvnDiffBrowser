@@ -15,10 +15,14 @@ $(function() {
 function addRepository(url: string, data: string) {
   $.post(
     baseUrl + url, data
-  ).done(function(data) {
-    toastr.success('The repository is added.');
-    // reload data
-    reloadRepositories();
+  ).done(function(data: boolean) {
+    if (data) {
+      toastr.success('The repository is added.');
+      // reload data
+      reloadRepositories();
+    } else {
+      toastr.error('Fail to add a repository.');
+    }
   }).fail(function(data) {
     // show message
     toastr.error('Fail to add a repository.');
