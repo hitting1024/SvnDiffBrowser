@@ -7,8 +7,10 @@ $(function () {
 });
 function addRepository(url, data) {
     $.post(baseUrl + url, data).done(function (data) {
+        toastr.success('The repository is added.');
         reloadRepositories();
     }).fail(function (data) {
+        toastr.error('Fail to add a repository.');
         console.log('add failure');
         console.log(data);
     });
@@ -46,14 +48,17 @@ function reloadRepositories() {
         $repositoryList.empty();
         $repositoryList.append($table);
     }).fail(function (data) {
+        toastr.error('Fail to reload repository list.');
         console.log('reload failure');
         console.log(data);
     });
 }
 function deleteRepository(repositoryId) {
     $.post(baseUrl + 'repository/delete', { 'repositoryId': repositoryId }).done(function (data) {
+        toastr.success('The repository is deleted.');
         reloadRepositories();
     }).fail(function (data) {
+        toastr.error('Fail to delete the repository.');
         console.log('delete failure');
         console.log(data);
     });
