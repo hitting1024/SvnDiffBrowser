@@ -49,10 +49,11 @@ class RepositoryRestController {
         var map: HashMap<Int, RepositoryModel>? = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as? HashMap<Int, RepositoryModel>
         if (map == null) {
             map = HashMap<Int, RepositoryModel>()
+        } else if (map.containsKey(repositoryModel.hashCode())) {
+            // already exists
+            return false
         }
-        if (!map.containsKey(repositoryModel.hashCode())) {
-            map.put(repositoryModel.hashCode(), repositoryModel)
-        }
+        map.put(repositoryModel.hashCode(), repositoryModel)
         session.setAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY, map)
         return true
     }
