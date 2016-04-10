@@ -33,7 +33,7 @@ class RepositoryServiceImpl : RepositoryService {
     fun existsRepository(repositoryModel: RepositoryModel): Boolean {
         try {
             val repository = this.initRepository(repositoryModel) ?: return false
-            val nodeKind = repository.checkPath("", -1);
+            val nodeKind = repository.checkPath("", -1)
             if (SVNNodeKind.NONE == nodeKind) {
                 return false
             }
@@ -42,7 +42,7 @@ class RepositoryServiceImpl : RepositoryService {
             return false
         }
 
-        return true;
+        return true
     }
 
     /**
@@ -64,7 +64,7 @@ class RepositoryServiceImpl : RepositoryService {
                 list.add(l)
             }
         } catch (e: SVNException) {
-            e.printStackTrace();
+            e.printStackTrace()
             return Collections.emptyList()
         }
 

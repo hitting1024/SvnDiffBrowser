@@ -1,16 +1,16 @@
 package jp.hitting.svn_diff_browser.controller;
 
 import jp.hitting.svn_diff_browser.Constants
-import jp.hitting.svn_diff_browser.model.RepositoryModel;
-import jp.hitting.svn_diff_browser.service.RepositoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.HashMap;
-import java.util.Map;
+import jp.hitting.svn_diff_browser.model.RepositoryModel
+import jp.hitting.svn_diff_browser.service.RepositoryService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController
+import java.util.HashMap
+import java.util.Map
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession
 
 /**
  * Repository RestController.
@@ -66,12 +66,12 @@ class RepositoryRestController {
      */
     @RequestMapping(value = "/delete", method = arrayOf(RequestMethod.POST))
     fun deleteRepository(repositoryId: Int, session: HttpSession): Boolean {
-        val map = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as Map<Int, RepositoryModel>;
+        val map = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as Map<Int, RepositoryModel>
         if (map == null) {
-            return true;
+            return true
         }
-        map.remove(repositoryId);
-        return true;
+        map.remove(repositoryId)
+        return true
     }
 
 }

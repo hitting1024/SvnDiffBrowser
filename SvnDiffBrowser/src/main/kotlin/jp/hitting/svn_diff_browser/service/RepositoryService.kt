@@ -3,7 +3,7 @@ package jp.hitting.svn_diff_browser.service;
 import jp.hitting.svn_diff_browser.model.DiffInfo
 import jp.hitting.svn_diff_browser.model.LogInfo
 import jp.hitting.svn_diff_browser.model.PathInfo
-import jp.hitting.svn_diff_browser.model.RepositoryModel;
+import jp.hitting.svn_diff_browser.model.RepositoryModel
 
 /**
  * Repository Service.
