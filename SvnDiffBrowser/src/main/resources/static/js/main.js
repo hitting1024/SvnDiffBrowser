@@ -23,7 +23,7 @@ function addRepository(url, data) {
 function reloadRepositories() {
     $.get(baseUrl + 'repository/list').done(function (data) {
         console.log(data);
-        if (data.length == 0) {
+        if (data.length === 0) {
             return;
         }
         var $table = $('<table>');

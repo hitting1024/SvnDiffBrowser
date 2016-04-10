@@ -36,7 +36,7 @@ function reloadRepositories() {
     baseUrl + 'repository/list'
   ).done(function(data) {
     console.log(data);
-    if (data.length == 0) {
+    if (data.length === 0) {
       return;
     }
     let $table = $('<table>');
