@@ -1,13 +1,15 @@
 package jp.hitting.svn_diff_browser.controller;
 
 import jp.hitting.svn_diff_browser.Constants
+import jp.hitting.svn_diff_browser.model.LogInfo
 import jp.hitting.svn_diff_browser.model.RepositoryModel
 import jp.hitting.svn_diff_browser.service.RepositoryService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-import java.util.HashMap
+import java.util.*
 import java.util.Map
 
 import javax.servlet.http.HttpSession
@@ -72,6 +74,18 @@ class RepositoryRestController {
         }
         map.remove(repositoryId)
         return true
+    }
+
+    /**
+     * get commit log.
+     *
+     * @param id repository ID
+     * @param lastRev the end of revision to get commit log
+     * @return commit log list
+     */
+    @RequestMapping(value = "/{id}/log")
+    fun getCommitLog(@PathVariable("id") id: Int, lastRev: Long?): List<LogInfo> {
+        return Collections.emptyList()
     }
 
 }
