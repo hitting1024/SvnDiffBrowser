@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../static/libs/skeleton/css/normalize.css" th:href="@{/libs/skeleton/css/normalize.css}"/>
     <link rel="stylesheet" href="../static/libs/skeleton/css/skeleton.css" th:href="@{/libs/skeleton/css/skeleton.css}"/>
     <link rel="stylesheet" href="../static/libs/skeleton/css/github-prettify-theme.css" th:href="@{/libs/skeleton/css/github-prettify-theme.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/toastr/toastr.css" th:href="@{/bower_components/toastr/toastr.css}"/>
 
 </head>
 <body>
@@ -66,9 +67,11 @@
 
 <script type="text/javascript" th:inline="javascript">
 var baseUrl = /*[[ @{/} ]]*/ 'http://localhost:3000/';
+var repositoryId = /*[[ ${id} ]]*/ 777;
 </script>
 
 <script type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/bower_components/toastr/toastr.js" th:src="@{/bower_components/toastr/toastr.js}"></script>
 <script type="text/javascript" src="../static/js/detail.js" th:src="@{/js/detail.js}"></script>
 
 <!-- End Document
