@@ -14,8 +14,8 @@ function getLogList() {
             var log = data[id];
             var $tr = $('<tr>');
             $tr.append($('<td>').append($('<a>')
-                .text(log.revision)
-                .attr('href', baseUrl + 'repository/' + repositoryId + '/rev/' + log.revision)));
+                .text(log.rev)
+                .attr('href', baseUrl + 'repository/' + repositoryId + '/rev/' + log.rev)));
             $tr.append($('<td>').text(log.comment));
             $table.append($tr);
         }

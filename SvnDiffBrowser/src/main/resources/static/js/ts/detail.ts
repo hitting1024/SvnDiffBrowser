@@ -28,8 +28,8 @@ function getLogList() {
       $tr.append(
         $('<td>').append(
           $('<a>')
-            .text(log.revision)
-            .attr('href', baseUrl + 'repository/' + repositoryId + '/rev/' + log.revision)
+            .text(log.rev)
+            .attr('href', baseUrl + 'repository/' + repositoryId + '/rev/' + log.rev)
         )
       );
       $tr.append($('<td>').text(log.comment));
@@ -46,6 +46,6 @@ function getLogList() {
 
 // class
 class LogModel {
-  revision: number;
+  rev: number;
   comment: string;
 }
