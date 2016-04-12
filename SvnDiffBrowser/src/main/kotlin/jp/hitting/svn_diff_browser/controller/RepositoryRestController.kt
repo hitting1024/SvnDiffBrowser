@@ -84,8 +84,16 @@ class RepositoryRestController {
      * @return commit log list
      */
     @RequestMapping(value = "/{id}/log")
-    fun getCommitLog(@PathVariable("id") id: Int, lastRev: Long?): List<LogInfo> {
-        return Collections.emptyList()
+    fun getCommitLog(@PathVariable("id") id: Int, path: String?, lastRev: Long?, session: HttpSession): List<LogInfo> {
+        val map = session.getAttribute(Constants.SessionKey.SESSION_REPOSITORY_KEY) as? HashMap<Int, RepositoryModel>
+        if (map == null || !map.containsKey(id)) {
+            return Collections.emptyList()
+        }
+
+        val repository = map.get(id)!!
+        val targetPath = if (path == null) "/" else "/" + path
+        // TODO revision
+        return this.repositoryServiceImpl!!.getLogList(repository, targetPath)
     }
 
 }

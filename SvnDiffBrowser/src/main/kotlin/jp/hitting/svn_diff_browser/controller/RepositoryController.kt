@@ -44,8 +44,6 @@ class RepositoryController {
 
         val targetPath = if (path == null) "/" else "/" + path
         model.addAttribute("path", targetPath)
-        // FIXME init repository twice
-        model.addAttribute("logList", this.repositoryServiceImpl!!.getLogList(repository, targetPath))
         model.addAttribute("pathList", this.repositoryServiceImpl!!.getPathList(repository, targetPath))
 
         return "detail"
