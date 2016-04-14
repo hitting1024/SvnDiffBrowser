@@ -92,8 +92,7 @@ class RepositoryRestController {
 
         val repository = map.get(id)!!
         val targetPath = if (path == null) "/" else "/" + path
-        // TODO revision
-        return this.repositoryServiceImpl!!.getLogList(repository, targetPath)
+        return this.repositoryServiceImpl!!.getLogList(repository, targetPath, lastRev)
     }
 
 }

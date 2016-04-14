@@ -26,6 +26,8 @@ import java.util.*
 @Service
 class RepositoryServiceImpl : RepositoryService {
 
+    private val LOG_NUM_PER_PAGE = 10
+
     /**
      * {@inheritDoc}
      */
@@ -48,13 +50,13 @@ class RepositoryServiceImpl : RepositoryService {
     /**
      * {@inheritDoc}
      */
-    override fun getLogList(repositoryModel: RepositoryModel, path: String): List<LogInfo> {
+    override fun getLogList(repositoryModel: RepositoryModel, path: String, lastRev: Long?): List<LogInfo> {
         val list = ArrayList<LogInfo>()
         try {
             val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
-            val rev = repository.latestRevision
-            // FIXME adjust start revision number for large revision number
-            val logs = repository.log(arrayOf(path), null, 1, rev, false, false) as List<SVNLogEntry>
+            val endRev = lastRev ?: repository.latestRevision
+            val startRev = if (endRev > LOG_NUM_PER_PAGE) endRev - LOG_NUM_PER_PAGE + 1 else 1
+            val logs = repository.log(arrayOf(path), null, startRev, endRev, false, false) as List<SVNLogEntry>
             logs.forEach {
                 val l = LogInfo()
                 l.rev = it.revision

@@ -24,9 +24,10 @@ interface RepositoryService {
      *
      * @param repositoryModel repository info
      * @param path target path
+     * @param lastRev the end of revision to get commit log
      * @return LogInfo list
      */
-    fun getLogList(repositoryModel: RepositoryModel, path: String): List<LogInfo>
+    fun getLogList(repositoryModel: RepositoryModel, path: String, lastRev: Long?): List<LogInfo>
 
     /**
      * get path list.
