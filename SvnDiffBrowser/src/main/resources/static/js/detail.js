@@ -1,8 +1,11 @@
 $(function () {
-    getLogList();
+    getLogList(null);
 });
-function getLogList() {
-    $.get(baseUrl + '/repository/' + repositoryId + '/log').done(function (data) {
+function getLogList(lastRev) {
+    $.get(baseUrl + '/repository/' + repositoryId + '/log', {
+        path: path,
+        lastRev: lastRev
+    }).done(function (data) {
         if (data.length === 0) {
             return;
         }

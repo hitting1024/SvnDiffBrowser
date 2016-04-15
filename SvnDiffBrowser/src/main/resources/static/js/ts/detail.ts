@@ -3,15 +3,20 @@
 
 declare var baseUrl: string;
 declare var repositoryId: number;
+declare var path: string;
 
 $(function() {
   // get commit log
-  getLogList();
+  getLogList(null);
 });
 
-function getLogList() {
+function getLogList(lastRev: number) {
   $.get(
-    baseUrl + '/repository/' + repositoryId + '/log'
+    baseUrl + '/repository/' + repositoryId + '/log',
+    {
+      path: path,
+      lastRev: lastRev
+    }
   ).done(function(data) {
     if (data.length === 0) {
       return;
