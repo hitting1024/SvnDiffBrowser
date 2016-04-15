@@ -5,6 +5,7 @@ import jp.hitting.svn_diff_browser.model.LogInfo
 import jp.hitting.svn_diff_browser.model.PathInfo
 import jp.hitting.svn_diff_browser.model.RepositoryModel
 import jp.hitting.svn_diff_browser.util.DiffUtil
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
 import org.tmatesoft.svn.core.*
@@ -26,7 +27,9 @@ import java.util.*
 @Service
 class RepositoryServiceImpl : RepositoryService {
 
-    private val LOG_NUM_PER_PAGE = 10
+
+    @Value("\${commit-log-chunk}")
+    private val commitLogChunk: Int = 10
 
     /**
      * {@inheritDoc}
@@ -55,7 +58,7 @@ class RepositoryServiceImpl : RepositoryService {
         try {
             val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
             val endRev = lastRev ?: repository.latestRevision
-            val startRev = if (endRev > LOG_NUM_PER_PAGE) endRev - LOG_NUM_PER_PAGE + 1 else 1
+            val startRev = if (endRev > this.commitLogChunk) endRev - this.commitLogChunk + 1 else 1
             val logs = repository.log(arrayOf(path), null, startRev, endRev, false, false) as List<SVNLogEntry>
             logs.forEach {
                 val l = LogInfo()
