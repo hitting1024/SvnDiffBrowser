@@ -60,7 +60,7 @@ class RepositoryServiceImpl : RepositoryService {
             val endRev = lastRev ?: repository.latestRevision
             val startRev = if (endRev > this.commitLogChunk) endRev - this.commitLogChunk + 1 else 1
             val logs = repository.log(arrayOf(path), null, startRev, endRev, false, false) as List<SVNLogEntry>
-            logs.forEach {
+            logs.reversed().forEach {
                 val l = LogInfo()
                 l.rev = it.revision
                 val message = it.message
