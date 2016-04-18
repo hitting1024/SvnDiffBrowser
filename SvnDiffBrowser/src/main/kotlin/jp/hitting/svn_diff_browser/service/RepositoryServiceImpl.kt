@@ -31,6 +31,10 @@ class RepositoryServiceImpl : RepositoryService {
     @Value("\${commit-log-chunk}")
     private val commitLogChunk: Int = 10
 
+    /**
+     * constructor.
+     * Repository setup.
+     */
     init {
         DAVRepositoryFactory.setup()
         SVNRepositoryFactoryImpl.setup()
@@ -143,7 +147,7 @@ class RepositoryServiceImpl : RepositoryService {
         if (StringUtils.isEmpty(url)) {
             return null
         }
-        
+
         val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
         val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
         val repository = SVNRepositoryFactory.create(svnUrl)
