@@ -31,6 +31,12 @@ class RepositoryServiceImpl : RepositoryService {
     @Value("\${commit-log-chunk}")
     private val commitLogChunk: Int = 10
 
+    init {
+        DAVRepositoryFactory.setup()
+        SVNRepositoryFactoryImpl.setup()
+        FSRepositoryFactory.setup()
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -137,17 +143,7 @@ class RepositoryServiceImpl : RepositoryService {
         if (StringUtils.isEmpty(url)) {
             return null
         }
-
-        // init
-        // TODO handle concurrent access
-        if (url.startsWith("http", false)) {
-            DAVRepositoryFactory.setup()
-        } else if (url.startsWith("svn")) {
-            SVNRepositoryFactoryImpl.setup()
-        } else if (url.startsWith("file")) {
-            FSRepositoryFactory.setup()
-        }
-
+        
         val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
         val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
         val repository = SVNRepositoryFactory.create(svnUrl)
