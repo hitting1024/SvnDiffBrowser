@@ -5,12 +5,33 @@ declare var baseUrl: string;
 declare var repositoryId: number;
 declare var path: string;
 
+var pagingStack: Stack<number>;
+var latestRev: number;
+var youngestRev: number;
+
 $(function() {
+  pagingStack = new Stack<number>();
+
   // get commit log
-  getLogList(null);
+  updateLogList(null);
+
+  // set action
+  $('#newerPage').click(function(e) {
+    e.preventDefault();
+    updateLogList(pagingStack.pop());
+  });
+  $('#olderPage').click(function(e) {
+    e.preventDefault();
+    if (youngestRev <= 1) {
+      // nothing
+      return;
+    }
+    pagingStack.push(latestRev);
+    updateLogList(youngestRev - 1);
+  });
 });
 
-function getLogList(lastRev: number) {
+function updateLogList(lastRev: number) {
   $.get(
     baseUrl + '/repository/' + repositoryId + '/log',
     {
@@ -43,6 +64,9 @@ function getLogList(lastRev: number) {
     let $logList = $('#logList');
     $logList.empty();
     $logList.append($table);
+
+    latestRev = (<LogModel> data[0]).rev;
+    youngestRev = (<LogModel> data[data.length - 1]).rev;
   }).fail(function(data){
     toastr.error('Fail to load commit log.');
     console.log(data);
@@ -53,4 +77,23 @@ function getLogList(lastRev: number) {
 class LogModel {
   rev: number;
   comment: string;
+}
+
+class Stack<T> {
+  array: Array<T>;
+  constructor() {
+    this.array = new Array();
+  }
+  push(o: T) {
+    if (o == null) {
+      return;
+    }
+    this.array.push(o);
+  }
+  pop(): T {
+    if (this.array.length > 0) {
+      return this.array.pop();
+    }
+    return null;
+  }
 }
