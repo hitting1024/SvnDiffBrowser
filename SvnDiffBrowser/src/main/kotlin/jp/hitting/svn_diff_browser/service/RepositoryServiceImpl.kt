@@ -14,9 +14,7 @@ import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl
 import org.tmatesoft.svn.core.io.SVNRepository
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory
-import org.tmatesoft.svn.core.wc.SVNDiffClient
-import org.tmatesoft.svn.core.wc.SVNRevision
-import org.tmatesoft.svn.core.wc.SVNWCUtil
+import org.tmatesoft.svn.core.wc.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -29,7 +27,7 @@ class RepositoryServiceImpl : RepositoryService {
 
 
     @Value("\${commit-log-chunk}")
-    private val commitLogChunk: Int = 10
+    private val commitLogChunk: Long = 10
 
     /**
      * constructor.
@@ -66,18 +64,23 @@ class RepositoryServiceImpl : RepositoryService {
     override fun getLogList(repositoryModel: RepositoryModel, path: String, lastRev: Long?): List<LogInfo> {
         val list = ArrayList<LogInfo>()
         try {
-            val repository = this.initRepository(repositoryModel) ?: return Collections.emptyList()
-            val endRev = lastRev ?: repository.latestRevision
-            val startRev = if (endRev > this.commitLogChunk) endRev - this.commitLogChunk + 1 else 1
-            val logs = repository.log(arrayOf(path), null, startRev, endRev, false, false) as List<SVNLogEntry>
-            logs.reversed().forEach {
-                val l = LogInfo()
-                l.rev = it.revision
-                val message = it.message
-                l.comment = if (message == null) "" else message
-
-                list.add(l)
+            val url = repositoryModel.url
+            if (StringUtils.isEmpty(url)) {
+                return Collections.emptyList()
             }
+
+            //
+            val svnUrl = SVNURL.parseURIDecoded(url) // FIXME
+            val auth = SVNWCUtil.createDefaultAuthenticationManager(repositoryModel.userId, repositoryModel.password.toCharArray())
+            val logClient = SVNLogClient(auth, null)
+            val endRev = if (lastRev == null) SVNRevision.HEAD else SVNRevision.create(lastRev)
+            logClient.doLog(svnUrl, arrayOf(path), endRev, endRev, SVNRevision.create(1), false, false, this.commitLogChunk, { logEntry ->
+                println(logEntry.revision)
+                val l = LogInfo()
+                l.rev = logEntry.revision
+                l.comment = logEntry.message ?: ""
+                list.add(l)
+            })
         } catch (e: SVNException) {
             e.printStackTrace()
             return Collections.emptyList()
