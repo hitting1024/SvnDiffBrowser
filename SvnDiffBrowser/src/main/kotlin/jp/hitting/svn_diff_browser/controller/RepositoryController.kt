@@ -69,7 +69,7 @@ class RepositoryController {
         val repository = map.get(id)!!
         model.addAttribute("repositoryName", repository.getRepositoryName())
 
-        model.addAttribute("diffList", this.repositoryServiceImpl!!.getDiffList(repository, rev))
+        model.addAttribute("diff", this.repositoryServiceImpl!!.getDiffList(repository, rev))
         return "diff"
     }
 

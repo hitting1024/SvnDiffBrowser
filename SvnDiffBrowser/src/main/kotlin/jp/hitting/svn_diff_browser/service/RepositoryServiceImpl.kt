@@ -1,6 +1,5 @@
 package jp.hitting.svn_diff_browser.service;
 
-import jp.hitting.svn_diff_browser.model.DiffInfo
 import jp.hitting.svn_diff_browser.model.LogInfo
 import jp.hitting.svn_diff_browser.model.PathInfo
 import jp.hitting.svn_diff_browser.model.RepositoryModel
@@ -14,7 +13,10 @@ import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl
 import org.tmatesoft.svn.core.io.SVNRepository
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory
-import org.tmatesoft.svn.core.wc.*
+import org.tmatesoft.svn.core.wc.SVNDiffClient
+import org.tmatesoft.svn.core.wc.SVNLogClient
+import org.tmatesoft.svn.core.wc.SVNRevision
+import org.tmatesoft.svn.core.wc.SVNWCUtil
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -116,11 +118,11 @@ class RepositoryServiceImpl : RepositoryService {
     /**
      * {@inheritDoc}
      */
-    override fun getDiffList(repositoryModel: RepositoryModel, rev: Long): List<DiffInfo> {
+    override fun getDiffList(repositoryModel: RepositoryModel, rev: Long): String {
         try {
             val url = repositoryModel.url
             if (StringUtils.isEmpty(url)) {
-                return Collections.emptyList()
+                return ""
             }
 
             //
@@ -130,10 +132,10 @@ class RepositoryServiceImpl : RepositoryService {
 
             val outputStream = ByteArrayOutputStream()
             diffClient.doDiff(svnUrl, SVNRevision.create(rev - 1), svnUrl, SVNRevision.create(rev), SVNDepth.INFINITY, false, outputStream)
-            return DiffUtil.parseDiff(outputStream.toByteArray())
+            return DiffUtil.formatDiff(outputStream.toByteArray())
         } catch (e: SVNException) {
             e.printStackTrace()
-            return Collections.emptyList()
+            return ""
         }
     }
 

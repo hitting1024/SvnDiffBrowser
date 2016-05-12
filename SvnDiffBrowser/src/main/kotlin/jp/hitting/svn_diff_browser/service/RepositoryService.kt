@@ -43,8 +43,7 @@ interface RepositoryService {
      *
      * @param repositoryModel repository info
      * @param rev target revision
-     * @return DiffInfo list
+     * @return Diff
      */
-    fun getDiffList(repositoryModel: RepositoryModel, rev: Long): List<DiffInfo>
-
+    fun getDiffList(repositoryModel: RepositoryModel, rev: Long): String
 }
