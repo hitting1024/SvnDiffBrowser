@@ -21,7 +21,7 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="../static/libs/skeleton/css/normalize.css" th:href="@{/libs/skeleton/css/normalize.css}"/>
     <link rel="stylesheet" href="../static/libs/skeleton/css/skeleton.css" th:href="@{/libs/skeleton/css/skeleton.css}"/>
-    <link rel="stylesheet" href="../static/libs/skeleton/css/github-prettify-theme.css" th:href="@{/libs/skeleton/css/github-prettify-theme.css}"/>
+    <link rel="stylesheet" href="../static/bower_components/diff2html/dist/diff2html.css" th:href="@{/bower_components/diff2html/dist/diff2html.min.css}" />
 
 </head>
 <body>
@@ -33,18 +33,7 @@
 
     <h3>Revision <span th:text="${rev}">777</span></h3>
 
-    <div id="diffList">
-        <div th:each="diff: ${diffList}">
-            <div class="row">
-                <span th:text="${diff.path}">file name</span>
-            </div>
-            <div class="row">
-                <pre class="prettyprint" th:text="${diff.diff}">
-                    source code diff
-                </pre>
-            </div>
-        </div>
-    </div>
+    <div id="diff" th:text="${diff}">diff</div>
 
 </div>
 
@@ -56,6 +45,9 @@ var baseUrl = /*[[ @{/} ]]*/ 'http://localhost:3000/';
 </script>
 
 <script type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/bower_components/diff2html/dist/diff2html.js" th:src="@{/bower_components/diff2html/dist/diff2html.min.js}"></script>
+<script type="text/javascript" src="../static/bower_components/diff2html/dist/diff2html-ui.js" th:src="@{/bower_components/diff2html/dist/diff2html-ui.min.js}"></script>
+<script type="text/javascript" src="../static/js/diff.js" th:src="@{/js/diff.js}"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
