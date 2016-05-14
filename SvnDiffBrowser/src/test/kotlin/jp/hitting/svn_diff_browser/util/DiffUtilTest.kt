@@ -1,6 +1,5 @@
 package jp.hitting.svn_diff_browser.util
 
-import jp.hitting.svn_diff_browser.model.DiffInfo
 import org.junit.Assert
 import org.junit.Test
 import java.util.*
@@ -45,12 +44,11 @@ Index: dir/a.txt
 
         // expected data
 
-        var expectedList = ArrayList<DiffInfo>()
-        val diff1 = DiffInfo()
-        diff1.path = "hoge.txt"
-        diff1.diff = """
---- hoge.txt    (revision 4)
-+++ hoge.txt    (revision 5)
+        val expected = """
+diff
+--- a/hoge.txt    (revision 4)
++++ b/hoge.txt    (revision 5)
+
 @@ -2,6 +2,6 @@
 
 fuga
@@ -60,14 +58,10 @@ fuga
 updated
 +
 +aaa
-""".trimMargin()
-        expectedList.add(diff1)
+diff
+--- a/dir/a.txt   (revision 4)
++++ b/dir/a.txt   (revision 5)
 
-        val diff2 = DiffInfo()
-        diff2.path = "dir/a.txt"
-        diff2.diff = """
---- dir/a.txt   (revision 4)
-+++ dir/a.txt   (revision 5)
 @@ -0,0 +1,5 @@
 +aaaa
 +
@@ -75,19 +69,12 @@ updated
 +
 +cccc
 """.trimMargin()
-        expectedList.add(diff2)
 
         // execute
-        val diffList = DiffUtil.parseDiff(diffStr.toByteArray())
+        val actual = DiffUtil.formatDiff(diffStr.toByteArray())
 
         // assert
-        Assert.assertEquals(expectedList.size, diffList.size)
-        for (i in 0..expectedList.size-1) {
-            val e = expectedList.get(i)
-            val a = diffList.get(i)
-            Assert.assertEquals(e.path, a.path)
-            Assert.assertEquals(e.diff, a.diff)
-        }
+        Assert.assertEquals(expected, actual)
     }
 
 }
