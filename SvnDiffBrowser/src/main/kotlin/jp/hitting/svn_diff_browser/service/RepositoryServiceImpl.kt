@@ -103,7 +103,7 @@ class RepositoryServiceImpl : RepositoryService {
             dirs.forEach {
                 val p = PathInfo()
                 p.path = it.relativePath
-                p.comment = it.commitMessage
+                p.comment = it.commitMessage ?: ""
                 p.isDir = (SVNNodeKind.DIR == it.kind)
                 list.add(p)
             }
